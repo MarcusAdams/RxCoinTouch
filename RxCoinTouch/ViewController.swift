@@ -127,8 +127,8 @@ class ViewController: UIViewController {
         Observable<Int>
             .just(1)
             .take(until: gameEndedTrigger)
-            .delay(.seconds(secondsToTap), scheduler: MainScheduler.instance)
             .take(until: coin.rx.tap)
+            .delay(.seconds(secondsToTap), scheduler: MainScheduler.instance)
             .subscribe(onNext: {value in
                 self.game.accept(false)
             }, onDisposed: {
