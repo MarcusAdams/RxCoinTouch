@@ -26,9 +26,8 @@ class ViewController: UIViewController {
 
     let score = BehaviorRelay(value: 0)
     let game = BehaviorRelay(value: false)
+    let gameEndedTrigger = PublishRelay<Int>()
     let disposeBag = DisposeBag()
-    var timerDisposeBag = DisposeBag()
-    var coinDisposeBag = DisposeBag()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -76,8 +75,7 @@ class ViewController: UIViewController {
                 !value
             })
             .subscribe(onNext: {game in
-                self.timerDisposeBag = DisposeBag()
-                self.coinDisposeBag = DisposeBag()
+                self.gameEndedTrigger.accept(1)
         })
             .disposed(by: disposeBag)
 
@@ -99,32 +97,42 @@ class ViewController: UIViewController {
     }
 
     func spawnCoin() {
+        // Random location
         let maxX = Int(self.view.bounds.width) - imageSize
         let maxY = Int(self.view.bounds.height) - imageSize - paddingY
         let x = Int.random(in: 0...maxX)
         let y = Int.random(in: minY...maxY)
+
+        // Create coin button
         let coin = UIButton(frame: CGRect(x: x, y: y, width: imageSize, height: imageSize))
         coin.setBackgroundImage(UIImage(named: "penny"), for: .normal)
         self.view.insertSubview(coin, at: 0)
+
+        // Coin tap
         coin.rx.tap
+            .take(until: gameEndedTrigger)
             .take(1)
             .withLatestFrom(self.game)
             .subscribe(onNext: {value in
-                if value {
-                    playDing()
-                    coin.removeFromSuperview()
-                    self.score.accept(self.score.value + 1)
-                    self.spawnCoin()
-                }
+                playDing()
+                coin.removeFromSuperview()
+                self.score.accept(self.score.value + 1)
+                self.spawnCoin()
+            }, onDisposed: {
+                print("Coin disposed")
             })
-            .disposed(by: self.disposeBag)
+            .disposed(by: disposeBag)
 
+        // Coin timer
         Observable<Int>
             .just(1)
+            .take(until: gameEndedTrigger)
             .delay(.seconds(secondsToTap), scheduler: MainScheduler.instance)
             .take(until: coin.rx.tap)
             .subscribe(onNext: {value in
                 self.game.accept(false)
+            }, onDisposed: {
+                print("Timer disposed")
             })
             .disposed(by: disposeBag)
     }
