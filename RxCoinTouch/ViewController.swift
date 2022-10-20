@@ -14,6 +14,7 @@ let imageSize = 95
 let minY = 50
 let paddingY = 10
 let secondsToTap = 3
+let coinCount = 3
 
 var audio: AVAudioPlayer?
 
@@ -63,8 +64,9 @@ class ViewController: UIViewController {
             .subscribe(onNext: {game in
                 self.score.accept(0)
                 self.clearCoins()
-                self.spawnCoin()
-                self.spawnCoin()
+                for _ in 1...coinCount {
+                    self.spawnCoin()
+                }
         })
             .disposed(by: disposeBag)
 
