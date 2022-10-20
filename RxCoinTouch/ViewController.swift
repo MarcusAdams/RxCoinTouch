@@ -11,7 +11,7 @@ import RxCocoa
 import RxRelay
 import AVFoundation
 
-let imageSize = 60
+let imageSize = 95
 let minY = 50
 let paddingY = 10
 let secondsToTap = 3
