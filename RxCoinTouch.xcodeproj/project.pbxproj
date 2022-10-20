@@ -13,6 +13,7 @@
 		D1251CF02900A80600003819 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D1251CEE2900A80600003819 /* Main.storyboard */; };
 		D1251CF22900A80700003819 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D1251CF12900A80700003819 /* Assets.xcassets */; };
 		D1251CF52900A80700003819 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D1251CF32900A80700003819 /* LaunchScreen.storyboard */; };
+		D12EE915290200720049F60C /* ding0.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D12EE914290200720049F60C /* ding0.mp3 */; };
 		F23232305D8EA78053399912 /* Pods_RxCoinTouch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C264D7152F7E23E83ABD4BF5 /* Pods_RxCoinTouch.framework */; };
 /* End PBXBuildFile section */
 
@@ -28,6 +29,7 @@
 		D1251CF12900A80700003819 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D1251CF42900A80700003819 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D1251CF62900A80700003819 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D12EE914290200720049F60C /* ding0.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ding0.mp3; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -48,7 +50,6 @@
 				589CA2F80957FACEB6D58BC2 /* Pods-RxCoinTouch.debug.xcconfig */,
 				0572CB679C39F11F12CEF224 /* Pods-RxCoinTouch.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -81,6 +82,7 @@
 		D1251CE72900A80500003819 /* RxCoinTouch */ = {
 			isa = PBXGroup;
 			children = (
+				D12EE913290200420049F60C /* SupporingFiles */,
 				D1251CE82900A80500003819 /* AppDelegate.swift */,
 				D1251CEA2900A80500003819 /* SceneDelegate.swift */,
 				D1251CEC2900A80500003819 /* ViewController.swift */,
@@ -90,6 +92,14 @@
 				D1251CF62900A80700003819 /* Info.plist */,
 			);
 			path = RxCoinTouch;
+			sourceTree = "<group>";
+		};
+		D12EE913290200420049F60C /* SupporingFiles */ = {
+			isa = PBXGroup;
+			children = (
+				D12EE914290200720049F60C /* ding0.mp3 */,
+			);
+			name = SupporingFiles;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -153,6 +163,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D1251CF52900A80700003819 /* LaunchScreen.storyboard in Resources */,
+				D12EE915290200720049F60C /* ding0.mp3 in Resources */,
 				D1251CF22900A80700003819 /* Assets.xcassets in Resources */,
 				D1251CF02900A80600003819 /* Main.storyboard in Resources */,
 			);
