@@ -50,11 +50,10 @@ class ViewController: UIViewController {
     }
 
     func spawnCoin() {
-        let coin = UIButton(frame: CGRect(x: 150, y: 50, width: 60, height: 60))
+        let coin = UIButton(frame: CGRect(x: 50, y: 50, width: 60, height: 60))
         coin.setBackgroundImage(UIImage(named: "penny"), for: .normal)
         self.view.insertSubview(coin, at: 0)
         coin.rx.tap
-            .debug()
             .withLatestFrom(self.game)
             .subscribe(onNext: {value in
                 if value {
@@ -70,6 +69,7 @@ class ViewController: UIViewController {
             .subscribe(onNext: {timePassed in
                 
             })
+            .disposed(by: disposeBag)
 
     }
 
