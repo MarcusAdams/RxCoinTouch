@@ -111,8 +111,7 @@ class ViewController: UIViewController {
         coin.rx.tap
             .take(1)
             .take(until: gameEndedTrigger)
-            .withLatestFrom(self.game)
-            .subscribe(onNext: {value in
+            .subscribe(onNext: {
                 playDing()
                 coin.removeFromSuperview()
                 self.score.accept(self.score.value + 1)
