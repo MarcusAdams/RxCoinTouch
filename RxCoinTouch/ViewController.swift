@@ -14,7 +14,8 @@ let imageSize = 95
 let minY = 50
 let paddingY = 10
 let secondsToTap = 3
-let coinCount = 3
+let coinCount = 2
+let addCoinEvery = 100
 
 var audio: AVAudioPlayer?
 
@@ -87,6 +88,14 @@ class ViewController: UIViewController {
             })
             .disposed(by: disposeBag)
 
+        score
+            .subscribe(onNext: {score in
+                if score > 0 && score % addCoinEvery == 0 {
+                    self.spawnCoin()
+                }
+            })
+            .disposed(by: disposeBag)
+
     }
 
     func clearCoins() {
@@ -133,12 +142,14 @@ class ViewController: UIViewController {
         // Coin timer
         Observable<Int>
             .just(1)
-            .take(until: gameEndedTrigger)
             .delay(.seconds(secondsToTap), scheduler: MainScheduler.instance)
             .take(until: coin.rx.tap)
+            //.take(until: gameEndedTrigger)
             .subscribe(onNext: {value in
-                counter.text = "0"
-                self.game.accept(false)
+                if self.game.value {
+                    counter.text = "0"
+                    self.game.accept(false)
+                }
             }, onDisposed: {
                 print("Timer disposed")
             })
@@ -146,8 +157,8 @@ class ViewController: UIViewController {
 
         Observable<Int>
             .interval(.seconds(1), scheduler: MainScheduler.instance)
-            .take(until: gameEndedTrigger)
             .take(until: coin.rx.tap)
+            .take(until: gameEndedTrigger)
             .subscribe(onNext: {timePassed in
                 counter.text = String(2 - timePassed)
             })
