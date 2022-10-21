@@ -109,6 +109,13 @@ class ViewController: UIViewController {
         coin.setBackgroundImage(UIImage(named: "penny"), for: .normal)
         self.view.insertSubview(coin, at: 0)
 
+        let counter = UILabel(frame: CGRect(x: 0, y: 0, width: imageSize, height: imageSize))
+        counter.textColor = .white
+        counter.font = counter.font.withSize(60)
+        counter.textAlignment = .center
+        counter.text = "3"
+        coin.addSubview(counter)
+
         // Coin tap
         coin.rx.tap
             .take(1)
@@ -130,9 +137,19 @@ class ViewController: UIViewController {
             .delay(.seconds(secondsToTap), scheduler: MainScheduler.instance)
             .take(until: coin.rx.tap)
             .subscribe(onNext: {value in
+                counter.text = "0"
                 self.game.accept(false)
             }, onDisposed: {
                 print("Timer disposed")
+            })
+            .disposed(by: disposeBag)
+
+        Observable<Int>
+            .interval(.seconds(1), scheduler: MainScheduler.instance)
+            .take(until: gameEndedTrigger)
+            .take(until: coin.rx.tap)
+            .subscribe(onNext: {timePassed in
+                counter.text = String(2 - timePassed)
             })
             .disposed(by: disposeBag)
     }
