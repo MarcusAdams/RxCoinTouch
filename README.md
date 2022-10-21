@@ -2,7 +2,7 @@
 
 Collect the coins by tapping on them before the timer runs out. If the timer runs out, it's game over! Try to get the highest score. 
 
-Written in Swift utilizing RxSwift.
+Xcode project for iOS, written in Swift, utilizing RxSwift.
 
 Future plans are to attempt MVVM, improve performance and simplicity by utilizing other RxSwift operators, and adding some RxSwift network calls.
 
