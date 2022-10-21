@@ -1,6 +1,6 @@
 # RxCoinTouch
 
-Collect the coins by tapping on them before the timer runs out. If the timer runs out, it's game over! Try to get the highest score. 
+Collect the coins by tapping on them before the timer runs out. Each time you tap on a coin, a new one appears randomly on the screen. The higher the score, the more coins appear at a time. If the timer runs out, it's game over! Try to get the highest score. 
 
 Xcode project for iOS, written in Swift, utilizing RxSwift.
 
