@@ -29,6 +29,7 @@ class ViewController: UIViewController {
     let game = BehaviorRelay(value: false)
     let gameEndedTrigger = PublishRelay<Int>()
     let disposeBag = DisposeBag()
+    var timerDisposeBag = DisposeBag()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -78,6 +79,7 @@ class ViewController: UIViewController {
             })
             .subscribe(onNext: {game in
                 self.gameEndedTrigger.accept(1)
+                self.timerDisposeBag = DisposeBag()
         })
             .disposed(by: disposeBag)
 
@@ -144,7 +146,7 @@ class ViewController: UIViewController {
             .just(1)
             .delay(.seconds(secondsToTap), scheduler: MainScheduler.instance)
             .take(until: coin.rx.tap)
-            //.take(until: gameEndedTrigger)
+            //.take(until: gameEndedTrigger) // Causes re-entry
             .subscribe(onNext: {value in
                 if self.game.value {
                     counter.text = "0"
@@ -153,8 +155,9 @@ class ViewController: UIViewController {
             }, onDisposed: {
                 print("Timer disposed")
             })
-            .disposed(by: disposeBag)
+            .disposed(by: timerDisposeBag)
 
+        // Coin counter
         Observable<Int>
             .interval(.seconds(1), scheduler: MainScheduler.instance)
             .take(until: coin.rx.tap)
