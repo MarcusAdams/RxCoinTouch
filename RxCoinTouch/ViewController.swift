@@ -120,6 +120,24 @@ class ViewController: UIViewController {
         coin.setBackgroundImage(UIImage(named: "penny"), for: .normal)
         self.view.insertSubview(coin, at: 0)
 
+        // Set constraints in case they rotate their device
+        coin.translatesAutoresizingMaskIntoConstraints = false
+        coin.widthAnchor.constraint(equalToConstant: CGFloat(imageSize)).isActive = true
+        coin.heightAnchor.constraint(equalToConstant: CGFloat(imageSize)).isActive = true
+        let trailingAnchor = coin.trailingAnchor.constraint(lessThanOrEqualTo: coin.superview!.trailingAnchor, constant: 0)
+        let bottomAnchor = coin.bottomAnchor.constraint(lessThanOrEqualTo: coin.superview!.bottomAnchor, constant: 0)
+        let leadingAnchor = coin.leadingAnchor.constraint(lessThanOrEqualTo: coin.superview!.leadingAnchor, constant: CGFloat(x))
+        let topAnchor = coin.topAnchor.constraint(lessThanOrEqualTo: coin.superview!.topAnchor, constant: CGFloat(y))
+        trailingAnchor.priority = .required
+        bottomAnchor.priority = .required
+        topAnchor.priority = .defaultHigh
+        leadingAnchor.priority = .defaultHigh
+        trailingAnchor.isActive = true
+        bottomAnchor.isActive = true
+        topAnchor.isActive = true
+        leadingAnchor.isActive = true
+
+        // Create counter label
         let counter = UILabel(frame: CGRect(x: 0, y: 0, width: imageSize, height: imageSize))
         counter.textColor = .white
         counter.font = counter.font.withSize(60)
